@@ -1,0 +1,6 @@
+gevent
+flask
+flask-wtf
+redis
+flask-assets
+requests
