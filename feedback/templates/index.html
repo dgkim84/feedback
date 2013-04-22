@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+{% endblock %}
+{% block module %}
+<script type="text/javascript">
+require.config({
+  baseUrl: '/static/js/'
+  , paths: {
+    'lib': '../lib'
+  }
+  , urlArgs : 'v=' + new Date().getTime()
+});
+
+require(['feedback/feedback.initialize'], function() {
+  require(['feedback/feedback.app'], function() {
+    angular.bootstrap($('#feedback-app'), ['feedback'])
+  });
+});
+</script>
+{% endblock %}

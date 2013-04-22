@@ -1,0 +1,27 @@
+<div class="container" ng-controller="GlobalCtrl">
+  <div>
+    <ng:include src="'/static/templates/admin/navigation.html'" />
+  </div>
+  <div>    
+    <div class="row" ng-controller="NewProjectCtrl">
+      <div class="span12">
+        <form>
+          <fieldset>
+            <legend>프로젝트 등록</legend>
+            <div class="control-group" ng-class="{error: hasError('name')}">
+              <label class="help-block">프로젝트명을 적어주세요.</label>
+              <div class="controls"><input type="text" name="name" class="span6" ng-model="project.name" placeholder="프로젝트명"></div>
+              <span class="help-inline" ng-show="errors.name.length > 0"><span class="badge badge-important">{{errors.name.length}}</span> {{errors.name.join(',')}}</span>
+            </div>
+            <div class="control-group">
+              <label class="help-block">프로젝트 설명을 작성해주세요.</label>
+              <div class="controls"><textarea name="description" ng-model="project.description" class="input-block-level" rows="10"></textarea></div>
+            </div>
+            <button class="btn btn-success" ng-click="submit()">등록</button>
+            <button class="btn" ng-click="cancel()">돌아가기</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

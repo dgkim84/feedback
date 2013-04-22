@@ -1,0 +1,50 @@
+<div class="container" ng-controller="GlobalCtrl">
+  <div><ng:include src="'/static/templates/nav.html'" /></div>
+  <div ng-show="isActive('nav', 'projects')" ng-controller="TicketsCtrl">
+    <div class="row">
+      <div class="span12">
+        <ul class="nav nav-tabs">
+          <li ng-class="{active: isActive('path', '/projects')}"><a href="/projects">전체</a></li>
+          <li ng-repeat="project in projects" ng-class="{active: isActive('path', '/projects/'+project.id)}">
+            <a href="/projects/{{project.id}}">{{project.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <div class="tickets">
+          <div ng-show="tickets.length == 0 && meta.loading == false">
+            <div class="accordion-heading">
+              등록된 의견이 없습니다. <a href="/tickets/new?project={{pathVariables.project}}">첫 번째 의견을 남겨주세요.</a>
+            </div>
+          </div>
+          <div class="accordion" ng-show="tickets.length > 0">
+            <div ng-repeat="ticket in tickets" class="accordion-group">
+              <div class="" style="width: 100px; float: left;">
+                <a class="accordion-toggle btn btn-link btn-block" style="min-height: 36px; padding-top: 7px;" ng-click="like(ticket)"><i ng-class="{'icon-star-empty': !isChecked(ticket), 'icon-star': isChecked(ticket)}"></i> {{ticket.connects}}</a>
+              </div>
+              <div class="accordion-heading">
+                <a class="accordion-toggle" ng-click="toggle(ticket)">{{ticket.name}}</a>
+              </div>
+              <div class="accordion-body collapse in" ng-switch="ticket._meta.expand">
+                <div class="accordion-inner" ng-click="collapse(ticket)" ng-switch-when="true" ng-bind-html="ticket.description"></div>
+                <div class="accordion-inner" ng-click="expand(ticket)" ng-switch-default ng-bind-html="ticket.summary"></div>
+              </div>
+            </div>
+          </div>
+          <div class="loading" ng-switch="meta.loading" ng-show="meta.continuation">
+            <div ng-switch-default>
+              <button ng-click="moreTickets()" class="btn btn-large btn-block" type="button">More</button>
+            </div>
+            <div ng-switch-when="true">
+              <div class="bar" style="width: {{meta.loadGauge}}%;"></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
