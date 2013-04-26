@@ -1,3 +1,7 @@
 *.pyc
 env
 .webassets-cache
+build
+dist
+feedback.egg-info
+Attest-0.6dev_20130427-py2.7.egg
