@@ -1,6 +1,8 @@
-gevent
-flask
-flask-wtf
-redis
-flask-assets
-requests
+gevent==0.13.8
+flask==0.9
+Jinja2==2.6
+Werkzeug==0.8.3
+flask-wtf==0.8.3
+redis==2.7.2
+flask-assets==0.8
+requests==1.2.0
