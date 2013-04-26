@@ -6,3 +6,5 @@ flask-wtf==0.8.3
 redis==2.7.2
 flask-assets==0.8
 requests==1.2.0
+attest==0.5.3
+redismock==1.0.5
