@@ -11,7 +11,7 @@ class RedisType(type):
     if name.lower() in ['get', 'hget', 'hmget', 'set', 'hset', 'hmset'
         , 'ttl', 'expire', 'setnx', 'incr', 'hincrby', 'pipeline'
         , 'delete'
-        , 'zrevrangebyscore', 'zrangebyscore']:
+        , 'zrevrangebyscore', 'zrangebyscore', 'zrem']:
       return getattr(db, name.lower())
     elif hasattr(cls, name):
       return getattr(cls, name)
@@ -116,18 +116,18 @@ class Redis:
     if not this:
       return False
     this = json.loads(this)
-    p = db.pipeline
+    p = db.pipeline()
     p.hdel('%s:rows'%self.__namespace__, str(id))
-    p.zrem('%s:index'%self.__namespace__, id)
-    if self.__indexes__:
+    for index in self.__indexes__:
+      key = '%s:index:%s'%(self.__namespace__, index)
+      p.zrem(key, self.make_unique_index(self.as_dict(), index))
+
+    for part in self.__partitions__:
       for index in self.__indexes__:
-        if this.has_key(index):
-          p.zrem('%s:index:%s'%(self.__namespace__, this[index]), id)
-    if self.__partitions__:
-      for part in self.__partitions__:
-        if this.has_key(part):
-          p.zrem('%s:part:%s'%(self.__namespace__, this[part]), id)
-    res = p.execute
+        key = '%s:part:%s:%s:index:%s'%(self.__namespace__, part, 
+          self.as_dict()[part], index)
+        p.zrem(key, self.make_unique_index(self.as_dict(), index))
+    res = p.execute()
     return res[0]
 
   def __getattr__(self, name):
