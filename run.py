@@ -20,10 +20,3 @@ js = Bundle('components/angular/angular.min.js',
   output='gen/all.js')
 assets.register('js_all', js)
 
-app.run('0.0.0.0', 3122, debug=True)
-
-#@run_with_reloader
-#def run():
-#  http_server = WSGIServer(('', 3122), DebuggedApplication(app))
-#  http_server.serve_forever()
-#run()
