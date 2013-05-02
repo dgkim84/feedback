@@ -5,9 +5,15 @@ import redis
 app = Flask(__name__)
 app.config.from_object('config')
 
-db = redis.StrictRedis(host = app.config.get('REDIS_HOST', 'localhost')
+# db = redis.StrictRedis(host = app.config.get('REDIS_HOST', 'localhost')
+#     , port = app.config.get('REDIS_PORT', 6379)
+#     , db = app.config.get('REDIS_DB', 0))
+
+pool = redis.ConnectionPool(host = app.config.get('REDIS_HOST', 'localhost')
     , port = app.config.get('REDIS_PORT', 6379)
-    , db = app.config.get('REDIS_DB', 0))
+    , db = app.config.get('REDIS_DB', 0)
+    , max_connections = 1000)
+db = redis.StrictRedis(connection_pool=pool)
 
 from feedback.commons.views import mod as commonsModule
 from feedback.projects.views import mod as projectsModule
