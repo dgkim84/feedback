@@ -18,6 +18,7 @@ setup(
   test_suite='feedbacktests.tests',
   install_requires=[
     'gevent==0.13.8',
+    'gunicorn==0.17.4',
     'flask==0.9',
     'Jinja2==2.6',
     'Werkzeug==0.8.3',
