@@ -16,13 +16,13 @@ setup(
   ],
   test_loader='attest:auto_reporter.test_loader',
   test_suite='feedbacktests.tests',
-  setup_requires=[
+  install_requires=[
     'gevent==0.13.8',
     'flask==0.9',
     'Jinja2==2.6',
     'Werkzeug==0.8.3',
     'flask-wtf==0.8.3',
-    'redis==2.7.2',
+    'redis==2.7.3',
     'flask-assets==0.8',
     'requests==1.2.0'
   ]
